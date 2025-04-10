@@ -4,9 +4,10 @@ import { theme } from "../theme";
 
 type ItemProps = {
   name: string;
+  isCompleted?: boolean;
 };
 
-export default function ShoppingListItem({ name }: ItemProps) {
+export default function ShoppingListItem({ name, isCompleted }: ItemProps) {
   const handleDelete = () => {
     Alert.alert(
       `Are you want to delete ${name}? This action is not reversible`,
@@ -25,10 +26,25 @@ export default function ShoppingListItem({ name }: ItemProps) {
     );
   };
   return (
-    <View style={styles.itemContainer}>
-      <Text style={styles.itemText}>{name}</Text>
+    <View
+      style={[
+        styles.itemContainer,
+        isCompleted ? styles.completedContainer : undefined,
+      ]}
+    >
+      <Text
+        style={[
+          styles.itemText,
+          isCompleted ? styles.completedText : undefined,
+        ]}
+      >
+        {name}
+      </Text>
       <TouchableOpacity
-        style={styles.button}
+        style={[
+          styles.button,
+          isCompleted ? styles.completedButton : undefined,
+        ]}
         activeOpacity={0.8}
         onPress={handleDelete}
       >
@@ -48,27 +64,43 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     backgroundColor: "#fff",
+    borderRadius: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     borderBottomColor: "1a759f",
-    paddingHorizontal: 8,
+    paddingHorizontal: 20,
     paddingVertical: 16,
     width: "100%",
+    boxShadow: "1 1 6 #ccc",
+  },
+  completedContainer: {
+    backgroundColor: theme.colorGreyLight,
+    borderBottomColor: theme.colorGreyLight,
   },
   itemText: {
     flex: 2,
+    fontSize: 16,
   },
   button: {
-    backgroundColor: theme.colorBlack,
+    backgroundColor: theme.colorBlackLighten,
     padding: 8,
     borderRadius: 6,
     alignItems: "center",
     flex: 1,
   },
+  completedButton: {
+    backgroundColor: theme.colorGrey,
+  },
   buttonText: {
+    fontSize: 14,
     color: theme.colorWhite,
     fontWeight: "bold",
     textTransform: "uppercase",
+  },
+  completedText: {
+    textDecorationLine: "line-through",
+    textDecorationColor: theme.colorGrey,
+    color: theme.colorGrey,
   },
 });

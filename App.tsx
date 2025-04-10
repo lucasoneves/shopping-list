@@ -7,6 +7,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <ShoppingListItem name="Coffee" />
+      <ShoppingListItem name="Coffee" isCompleted />
+      <ShoppingListItem name="Coffee" />
     </View>
   );
 }
@@ -19,5 +21,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     padding: 12,
+    gap: 10,
   },
 });
